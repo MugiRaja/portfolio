@@ -6,16 +6,28 @@ export async function createViewers(request) {
   try {
     await dbConnect();
 
-    // ✅ Extract IP from request headers
+    // Get the IP address from x-forwarded-for or fallback to request.ip
     const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded ? forwarded.split(",")[0] : request.headers.get("host");
+    let ip = forwarded ? forwarded.split(",")[0].trim() : request.ip || "::1"; // Fallback to loopback if no IP found
 
-    // ✅ Store in database
+    // If the IP is still the loopback address "::1", set it to "127.0.0.1"
+    if (ip === "::1") ip = "127.0.0.1";
+
+    // ✅ Check if IP already exists
+    const existingViewer = await viewModel.findOne({ ip });
+    if (existingViewer) {
+      return NextResponse.json(
+        { message: "Visitor already recorded", ip, existing: true },
+        { status: 200 }
+      );
+    }
+
+    // ✅ Save the IP to the database
     const viewData = new viewModel({ ip });
     await viewData.save();
 
     return NextResponse.json(
-      { message: "Visitor recorded", ip },
+      { message: "Visitor recorded", ip, existing: false },
       { status: 200 }
     );
   } catch (error) {
@@ -25,6 +37,8 @@ export async function createViewers(request) {
     );
   }
 }
+
+
 
 export async function getViewers() {
   try {
