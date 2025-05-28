@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
-import viewModel from "@/models/viewModel";
+import viewModel from "../models/viewModel";
+import dbConnect from "../config/dbConnect";
 
 export async function createViewers(request) {
   try {
