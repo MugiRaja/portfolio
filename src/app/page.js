@@ -5,7 +5,7 @@ const page = () => {
     <div className="w-full h-svh bg-gradient-to-b from-black to-red-950">
   
 
-    <h1 className='text-white text-8xl font-extrabold'>Mukilan Rajaram</h1>
+    <h1 className='text-white text-8xl font-extrabold'>Mukilan Rajara</h1>
   
 </div>
 
