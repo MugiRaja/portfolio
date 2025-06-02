@@ -1,7 +1,8 @@
-'use client';
-import React, { useState } from 'react';
-import { FiX, FiAlertCircle } from 'react-icons/fi';
-import { GiConstructionWorker } from 'react-icons/gi';
+"use client";
+import underDevelopment from "@/components/underDevelopment";
+import Image from "next/image";
+import React, { useState } from "react";
+import { IoMenu } from "react-icons/io5";
 
 const Page = () => {
   const [showPopup, setShowPopup] = useState(true);
@@ -11,30 +12,27 @@ const Page = () => {
   };
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-black to-red-950 flex items-center justify-center">
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          <div className="relative bg-white text-black p-6 rounded-md shadow-lg max-w-sm w-full">
-            <button
-              onClick={handleClose}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold"
-            >
-              <FiX />
-            </button>
-            <div className="flex items-center space-x-2">
-              <FiAlertCircle className="text-red-500 text-2xl" />
-              <h2 className="text-xl font-bold"> Under Development</h2>
-            </div>
-            <p className="mt-4 flex items-center space-x-2">
-              <span>
-                i am currently working that why the portfolio its not complet
-              </span>
-            </p>
+    // container
+    <div className="relative w-full h-auto bg-gradient-to-b from-black to-red-950 flex items-center justify-center">
+      {/* top session */}
+      <div className="w-full h-screen">
+        {/* navbar */}
+        <nav className=" w-full h-12 flex items-center justify-between ">
+          <div className="flex">
+            <Image
+              src="/your-image-path.jpg"
+              alt="Description of Image"
+              width={10}
+              height={10}
+            />
+            <h1 className="text-white text-2xl font-bold">Mukilan Rajaram</h1>
           </div>
-        </div>
-      )}
-      <h1 className="text-white text-8xl font-extrabold">Mukilan Rajara</h1>
+          <IoMenu className="text-white" />
+        </nav>
+        <h1 className="text-white text-8xl font-extrabold">Mukilan Rajara</h1>
+      </div>
+
+      {showPopup && <underDevelopment />}
     </div>
   );
 };
